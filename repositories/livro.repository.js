@@ -10,7 +10,7 @@ async function insertLivro(livro){
 
 async function getLivrosByAutorId(autorId) {
     try {
-        return await Venda.findAll(
+        return await Livro.findAll(
             {
                 where: {
                     autorId: autorId
@@ -32,7 +32,7 @@ async function getLivros() {
 
 async function getLivro(id) {
     try {
-        return await Livro.findByPk(id);
+        return await Livro.findByPk(id, {raw: true});
     } catch (error) {
         throw error;
     }

@@ -58,13 +58,13 @@ async function deleteLivro(req, res, next) {
 
 async function createAvaliacao(req, res, next){
     try {
-        // let params = req.body;
-        // if(!params.livroId || !params.review){
-        //     throw new Error("Livro ID e Review são obrigatórios");
-        // }
-        // await LivroService.createReview(params.review, params.livroId);
+        let params = req.body;
+        if(!req.params.id || !params.avaliacao){
+            throw new Error("Livro ID e avaliacao são obrigatórios");
+        }
+        await LivroService.createAvaliacao(params.avaliacao, req.params.id);
         res.end();
-        logger.info(`POST /livro/review/`)
+        logger.info(`POST /livro/${req.params.id }/review/`)
     } catch (error) {
         next(error);
     }
@@ -72,7 +72,7 @@ async function createAvaliacao(req, res, next){
 
 async function deleteAvaliacao(req, res, next){
     try {
-        // await LivroService.deleteReview(req.params.id, req.params.index);
+        await LivroService.deleteAvaliacao(req.params.id, req.params.index);
         res.end();
         logger.info(`DELETE /livro/${req.params.id}/review/${req.params.index}`)
     } catch (error) {
