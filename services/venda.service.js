@@ -8,19 +8,19 @@ async function createVenda(venda){
     if(! await ClienteRepository.getCliente(venda.clienteId)) {
         error = "Cliente ID informado não existe!";
     }  
-    const product = await ProductRepository.getProduct(venda.productId);
-    if(!product) {
-        error += "Product ID informado não existe!";
+    const livro = await LivroRepository.getLivro(venda.livroId);
+    if(!livro) {
+        error += "Livro ID informado não existe!";
     }     
     if(error) {
         throw new Error(error);
     }
 
     
-   if(product.stock > 0 ) {
+   if(livro.estoque > 0 ) {
         venda =  await VendaRepository.insertVenda(venda);
-        product.stock--;
-        await ProductRepository.updateProduct(product);
+        livro.estoque--;
+        await LivroRepository.updateLivro(livro);
         return venda;
    } else {
     throw new Error("O produto informado não possui estoque");
@@ -44,37 +44,10 @@ async function getVenda(id){
     return await VendaRepository.getVenda(id);
 }
 
-async function updateVenda(venda){
-    let error = "";
-    if(! await ClienteRepository.getCliente(venda.clienteId)) {
-        error = "Cliente ID informado não existe!";
-    }  
-    if(! await ProductRepository.getProduct(venda.productId)) {
-        error += "Product ID informado não existe!";
-    }     
-    if(error) {
-        throw new Error(error);
-    }
-    return await VendaRepository.updateVenda(venda);
-}
 
-async function deleteVenda(id){
-    const venda = await VendaRepository.getVenda(id);
-    if(venda){
-        const product = await ProductRepository.getProduct(venda.productId);
-        await VendaRepository.deleteVenda(id);
-        product.stock++;
-        await ProductRepository.updateProduct(product);
-    } else {
-        throw new Error("O ID da Venda informada não existe!")
-    }
-    
-}
 
 export default{
     createVenda,
     getVendas,
-    getVenda,
-    updateVenda,
-    deleteVenda
+    getVenda    
 }

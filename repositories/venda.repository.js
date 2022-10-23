@@ -66,16 +66,13 @@ async function getVendasByAutorId(autorId) {
     try {
         return await Venda.findAll(
             {
-                where: {
-                    autorId: autorId
-                },
                 include: [
                     {
-                        model: Product
-                    },
-                    {
-                        model: Cliente
-                    }                   
+                        model: Livro,
+                        where: {
+                            autorId: autorId
+                        }
+                    }               
                 ]
             }
         )
@@ -93,37 +90,6 @@ async function getVenda(id) {
     }
 }
 
-async function updateVenda(venda) {
-    try {
-        await Venda.update(
-            {
-                value: venda.value,
-                date: venda.date,
-                clienteId: venda.clienteId
-            },
-            {
-                where: {
-                    vendaId: venda.vendaId
-                }
-            }
-        );
-        return await getVenda(venda.vendaId);
-    } catch (error) {
-        throw error;
-    } 
-}
-
-async function deleteVenda(id) {
-    try {
-        await Venda.destroy({
-            where: {
-                vendaId: id
-            }
-        })
-    } catch (error) {
-        throw error;
-    } 
-}
 
 export default{
     insertVenda,
@@ -131,7 +97,5 @@ export default{
     getVendasByClienteId,
     getVendasByLivroId,
     getVendasByAutorId,
-    getVenda,
-    updateVenda,
-    deleteVenda
+    getVenda
 }

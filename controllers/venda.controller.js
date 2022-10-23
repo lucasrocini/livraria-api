@@ -3,8 +3,8 @@ import VendaService from "../services/venda.service.js"
 async function createVenda(req, res, next) {
     try{
         let venda = req.body;
-        if( !venda.name || !venda.cpf || !venda.phone || !venda.email || !venda.address ) {
-            throw new Error("Name, CPF, Email e Address são obrigatórios!")
+        if( !venda.valor || !venda.data || !venda.clienteId || !venda.livroId ) {
+            throw new Error("valor, data, clienteId e livroId são obrigatórios!")
         }
         venda = await VendaService.createVenda(venda)
         res.send(venda);
@@ -32,34 +32,11 @@ async function getVenda(req, res, next) {
     }
 }
 
-async function updateVenda(req, res, next) {
-    try {
-        let venda = req.body;
-        if( !venda.vendaId || !venda.name || !venda.cpf || !venda.phone || !venda.email || !venda.address ) {
-            throw new Error("Venda ID, Name, CPF, Email e Address são obrigatórios!")
-        }
-        venda = await VendaService.updateVenda(venda);
-        res.send(venda);
-        logger.info(`PUT /venda - ${JSON.stringify(venda)}`);
-    } catch (err) {
-        next(err);
-    }
-}
 
-async function deleteVenda(req, res, next) {
-    try {
-        res.send(await VendaService.deleteVenda(req.params.id));
-        res.end();
-        logger.info(`DELETE /venda`);
-    } catch (err) {
-        next(err);
-    }
-}
+
 
 export default {
     createVenda,
     getVendas,
-    getVenda,
-    updateVenda,
-    deleteVenda
+    getVenda
 }
