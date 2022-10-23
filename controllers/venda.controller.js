@@ -16,7 +16,7 @@ async function createVenda(req, res, next) {
 
 async function getVendas(req, res, next) {
     try {
-        res.send(await VendaService.getVendas(req.query.clienteId, req.query.livroId, req.query.sutorId));
+        res.send(await VendaService.getVendas(req.query.clienteId, req.query.livroId, req.query.autorId));
         logger.info(`GET /venda`);
     } catch (err) {
         next(err);

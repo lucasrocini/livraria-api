@@ -3,8 +3,8 @@ import ClienteService from "../services/cliente.service.js"
 async function createCliente(req, res, next) {
     try{
         let cliente = req.body;
-        if( !cliente.name || !cliente.cpf || !cliente.phone || !cliente.email || !cliente.address ) {
-            throw new Error("Name, CPF, Email e Address são obrigatórios!")
+        if(  !cliente.nome || !cliente.email || !cliente.senha || !cliente.telefone || !cliente.endereco ) {
+            throw new Error("Nome, email, Email, senha, telefone e endereco são obrigatórios!")
         }
         cliente = await ClienteService.createCliente(cliente)
         res.send(cliente);
@@ -35,8 +35,8 @@ async function getCliente(req, res, next) {
 async function updateCliente(req, res, next) {
     try {
         let cliente = req.body;
-        if( !cliente.clienteId || !cliente.name || !cliente.cpf || !cliente.phone || !cliente.email || !cliente.address ) {
-            throw new Error("Cliente ID, Name, CPF, Email e Address são obrigatórios!")
+        if( !cliente.clienteId || !cliente.nome || !cliente.email || !cliente.senha || !cliente.telefone || !cliente.endereco ) {
+            throw new Error("Cliente ID, Nome, email, Email, senha, telefone e endereco são obrigatórios!")
         }
         cliente = await ClienteService.updateCliente(cliente);
         res.send(cliente);

@@ -9,12 +9,12 @@ router.get("/:id", LivroController.getLivro);
 router.delete("/:id", LivroController.deleteLivro);
 router.put("/", LivroController.updateLivro);
 
-router.post("/info", ProductController.createProductInfo);
-router.put("/info", ProductController.updateProductInfo);
-router.delete("/info/:id", ProductController.deleteProductInfo);
+router.post("/info", LivroController.createLivroInfo);
+router.put("/info", LivroController.updateLivroInfo);
+router.delete("/info/:id", LivroController.deleteLivroInfo);
 
-router.post("/:id/avaliacao", ProductController.createReview);
-router.delete("/:id/avaliacao/:index", ProductController.deleteReview);
+router.post("/:id/avaliacao", LivroController.createAvaliacao);
+router.delete("/:id/avaliacao/:index", LivroController.deleteAvaliacao);
 
 
 export default router;

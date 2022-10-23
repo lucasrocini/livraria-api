@@ -3,8 +3,8 @@ import AutorService from "../services/autor.service.js"
 async function createAutor(req, res, next) {
     try{
         let autor = req.body;
-        if( !autor.name || !autor.cpf || !autor.phone || !autor.email || !autor.address ) {
-            throw new Error("Name, CPF, Email e Address são obrigatórios!")
+        if( !autor.nome ||  !autor.email || !autor.telefone ) {
+            throw new Error("Nome, email e telefone são obrigatórios!")
         }
         autor = await AutorService.createAutor(autor)
         res.send(autor);
@@ -16,7 +16,7 @@ async function createAutor(req, res, next) {
 
 async function getAutores(req, res, next) {
     try {
-        res.send(await AutorService.getAutors());
+        res.send(await AutorService.getAutores());
         logger.info(`GET /autor`);
     } catch (err) {
         next(err);
@@ -35,8 +35,8 @@ async function getAutor(req, res, next) {
 async function updateAutor(req, res, next) {
     try {
         let autor = req.body;
-        if( !autor.autorId || !autor.name || !autor.cpf || !autor.phone || !autor.email || !autor.address ) {
-            throw new Error("Autor ID, Name, CPF, Email e Address são obrigatórios!")
+        if( !autor.autorId || !autor.nome ||  !autor.email || !autor.telefone ) {
+            throw new Error("autorId, Nome, email e telefone são obrigatórios!")
         }
         autor = await AutorService.updateAutor(autor);
         res.send(autor);

@@ -5,7 +5,7 @@ async function createAutor(autor){
 }
 
 async function getAutores(){
-    return await AutorRepository.getAutors();
+    return await AutorRepository.getAutores();
 }
 
 async function getAutor(id){
