@@ -5,12 +5,14 @@ import clientesRouter from "./routes/cliente.route.js";
 import livrosRouter from "./routes/livro.route.js";
 import autoresRouter from "./routes/autor.route.js";
 import vendasRouter from "./routes/venda.route.js";
+import defaultRouter from "./routes/default.route.js";
 import expressBasicAuth from "express-basic-auth";
 
 const { combine, timestamp, label, printf } = winston.format;
 const myFormat = printf(({level, message, label, timestamp}) => {
     return `${timestamp} [${label}] ${level} ${message}`;
 });
+
 global.logger = winston.createLogger({
     level: "silly",
     transports: [
@@ -71,6 +73,8 @@ app.use(cors());
 // app.use("/livro", authorize('admin'), livrosRouter);
 
 //Auth Related END
+
+app.use("/", defaultRouter);
 
 app.use("/cliente", clientesRouter);
 app.use("/livro", livrosRouter);
