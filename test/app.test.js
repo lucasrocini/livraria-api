@@ -105,7 +105,7 @@ test('Consultar Cliente criado no banco', async () => {
 
 test('Criar Venda com credenciais do usuário criado, comprando livro criado', async () => {
   const vendaIntegrationTest = {
-    valor: 55.60,
+    valor: 55.61,
     data: '2022-10-10',
     clienteId: clienteIdCriado,
     livroId: livroIdCriado,
@@ -114,7 +114,12 @@ test('Criar Venda com credenciais do usuário criado, comprando livro criado', a
     .post('/Venda')
     .send(vendaIntegrationTest)
   expect(res.status).toBe(200);
-  expect(res.body).toMatchObject(vendaIntegrationTest);
+  expect(res.body).toMatchObject({
+    valor: "55.61",
+    data: '2022-10-10',
+    clienteId: clienteIdCriado,
+    livroId: livroIdCriado,
+  });
   vendaIdCriado = res.body.vendaId;
 });
 
